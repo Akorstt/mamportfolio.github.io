@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f1ea">
+  <meta name="description" content="Akost — architecture student, curious maker, and explorer of design, code, and digital spaces.">
+  <meta property="og:title" content="Akost — spaces, systems & everything between">
+  <meta property="og:description" content="A personal corner of the internet for architecture, code, creative experiments, and whatever comes next.">
+  <meta property="og:type" content="website">
+  <title>Akost — Spaces, Systems & Everything Between</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%232b43db'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-family='Arial' font-size='46' font-weight='bold' fill='white'%3Ea%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --paper: #f3f1ea;
+      --surface: #ebe8de;
+      --ink: #20241f;
+      --muted: #6e756f;
+      --line: #c8ccc2;
+      --accent: #2b43db;
+      --accent-soft: #dce2fc;
+      --font: "Arial", "Helvetica Neue", Helvetica, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.55; }
+    ::selection { background: var(--accent); color: white; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+    .skip { position: absolute; left: 1rem; top: -6rem; z-index: 30; padding: .65rem 1rem; background: var(--ink); color: white; }
+    .skip:focus { top: 1rem; }
+    .wrap { width: min(1250px, calc(100% - 100px)); margin-inline: auto; }
+    .mono { font-family: "Courier New", Courier, monospace; font-size: .75rem; letter-spacing: .055em; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+    .site-header { position: relative; z-index: 10; border-bottom: 1px solid var(--line); }
+    .nav { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+    .logo { display: inline-flex; align-items: center; gap: .75rem; font-weight: 800; font-size: 1.07rem; text-decoration: none; letter-spacing: -.03em; }
+    .logo-mark { width: 40px; height: 40px; background: var(--accent); color: white; display: grid; place-items: center; font-size: 1.8rem; line-height: 1; letter-spacing: -.1em; padding-right: .1em; }
+    .nav-links { display: flex; align-items: center; gap: clamp(1rem, 3vw, 3rem); }
+    .nav-links a { text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links .nav-cta { border: 1px solid var(--ink); padding: .65rem 1rem; display: inline-flex; gap: 1rem; align-items: center; }
+    .nav-links .nav-cta:hover { color: white; background: var(--ink); }
+    .hero { padding: clamp(65px, 8vw, 125px) 0 0; border-bottom: 1px solid var(--line); overflow: hidden; }
+    .hero-top { display: flex; align-items: center; gap: .8rem; margin-bottom: 2.5rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 1050px; margin: 0; font-size: clamp(4rem, 10vw, 10.1rem); font-weight: 700; line-height: .93; letter-spacing: -.087em; }
+    h1 .outline { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+    h1 .accent { color: var(--accent); }
+    .hero-bottom { margin-top: clamp(50px, 8vw, 110px); display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; }
+    .hero-description { max-width: 490px; padding-bottom: 4rem; }
+    .hero-description p { font-size: clamp(1.1rem, 2vw, 1.45rem); line-height: 1.48; letter-spacing: -.026em; }
+    .hero-description .sub { color: var(--muted); font-size: .92rem; margin-top: 2rem; }
+    .text-link { text-decoration: none; border-bottom: 1px solid currentColor; display: inline-flex; justify-content: space-between; gap: 2rem; padding-bottom: .4rem; font-weight: 600; }
+    .text-link:hover { color: var(--accent); }
+    .hero-description .text-link { margin-top: .7rem; }
+    .drawing { height: 365px; overflow: hidden; position: relative; background: var(--surface); border: 1px solid var(--line); border-bottom: 0;
+      background-image: linear-gradient(to right, rgba(54,67,95,.085) 1px, transparent 1px), linear-gradient(to bottom, rgba(54,67,95,.085) 1px, transparent 1px);
+      background-size: 25px 25px; }
+    .drawing:before, .drawing:after { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; left: 50%; background: rgba(43,67,219,.24); }
+    .drawing:after { left: 0; right: 0; top: 50%; height: 1px; width: auto; bottom: auto; }
+    .drawing svg { position: absolute; width: 100%; height: 100%; }
+    .drawing-tag { position: absolute; padding: .55rem .75rem; background: var(--paper); border: 1px solid var(--line); z-index: 1; }
+    .drawing-tag.top { top: 15px; left: 15px; }
+    .drawing-tag.bottom { bottom: 15px; right: 15px; }
+    .index-band { border-bottom: 1px solid var(--line); }
+    .index-band .wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .index-cell { padding: 1.5rem 2rem 1.5rem 0; }
+    .index-cell + .index-cell { border-left: 1px solid var(--line); padding-left: 2rem; }
+    .index-cell .mono { display: block; color: var(--muted); margin-bottom: .45rem; }
+    .index-cell strong { font-size: .97rem; font-weight: 600; }
+    .section { padding: clamp(85px, 12vw, 165px) 0; border-bottom: 1px solid var(--line); }
+    .section-heading { display: flex; align-items: center; gap: 1.4rem; margin-bottom: clamp(40px, 6vw, 70px); }
+    .section-heading:after { content: ""; height: 1px; background: var(--line); flex: 1; }
+    .section-number { color: var(--accent); font-weight: 700; }
+    .about-grid { display: grid; grid-template-columns: .55fr 1fr; gap: clamp(2rem, 9vw, 10rem); }
+    .section h2 { font-size: clamp(2.9rem, 6.5vw, 6.3rem); line-height: 1.02; letter-spacing: -.07em; font-weight: 600; }
+    .about-body .lead { font-size: clamp(1.3rem, 2.7vw, 2.1rem); line-height: 1.34; letter-spacing: -.045em; }
+    .about-body p:not(.lead) { max-width: 690px; color: #505750; }
+    .about-notes { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2.2rem; }
+    .tag { border: 1px solid var(--line); padding: .55rem .85rem; font-size: .77rem; background: rgba(255,255,255,.2); }
+    .work-header { display: flex; justify-content: space-between; gap: 3rem; align-items: end; margin-bottom: 3rem; }
+    .work-header h2 { margin: 0; max-width: 800px; }
+    .work-header p { max-width: 250px; margin: 0 0 .3rem; color: var(--muted); font-size: .9rem; }
+    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .work-card { border: 1px solid var(--line); background: #eeece4; min-height: 470px; display: flex; flex-direction: column; transition: transform .22s ease, border-color .22s ease; }
+    .work-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .work-art { position: relative; height: 245px; overflow: hidden; border-bottom: 1px solid var(--line); background: #e5e7dc; }
+    .work-art .art-meta { position: absolute; top: 17px; left: 18px; z-index: 2; color: #525d51; }
+    .work-art svg { width: 100%; height: 100%; }
+    .work-content { flex: 1; padding: 1.7rem; display: flex; flex-direction: column; }
+    .work-content .mono { color: var(--accent); }
+    .work-content h3 { font-size: 1.7rem; margin: 1rem 0; line-height: 1.15; letter-spacing: -.05em; font-weight: 600; }
+    .work-content p { color: #596158; font-size: .89rem; max-width: 320px; }
+    .work-card-foot { margin-top: auto; padding-top: 1.2rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: .75rem; color: var(--muted); }
+    .aside-section { background: var(--accent); color: white; }
+    .aside-section .section-heading:after { background: rgba(255,255,255,.35); }
+    .aside-section .section-number { color: white; }
+    .aside-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 5rem; }
+    .aside-grid h2 { max-width: 600px; }
+    .aside-grid h2 em { font-style: normal; color: #bac4ff; }
+    .aside-body { padding-top: 1rem; }
+    .aside-body p { font-size: 1.15rem; line-height: 1.65; max-width: 500px; }
+    .aside-list { padding: 0; list-style: none; margin: 2rem 0 0; }
+    .aside-list li { display: flex; justify-content: space-between; gap: 2rem; padding: 1rem 0; border-top: 1px solid rgba(255,255,255,.34); }
+    .aside-list li span:last-child { opacity: .6; }
+    .contact { padding-bottom: 7rem; }
+    .contact h2 { max-width: 1000px; }
+    .contact .intro { display: flex; justify-content: space-between; gap: 2rem; align-items: end; }
+    .contact .intro p { max-width: 340px; color: var(--muted); }
+    .contact-action { display: flex; justify-content: space-between; align-items: center; gap: 2rem; text-decoration: none; margin-top: 4rem; padding: 1.65rem 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); font-size: clamp(1.4rem, 3vw, 2.7rem); letter-spacing: -.05em; font-weight: 600; transition: color .2s; }
+    .contact-action:hover { color: var(--accent); }
+    .contact-action span:last-child { font-size: 1em; }
+    .footer { display: flex; justify-content: space-between; gap: 2rem; align-items: center; padding-top: 2rem; padding-bottom: 3rem; }
+    .footer p { margin: 0; color: var(--muted); font-size: .78rem; }
+    .footer a { color: var(--muted); text-underline-offset: .2rem; font-size: .78rem; }
+    @media (max-width: 900px) {
+      .wrap { width: min(100% - 48px, 1250px); }
+      .hero-bottom { gap: 1.5rem; }
+      .drawing { height: 320px; }
+      .work-grid { grid-template-columns: 1fr 1fr; }
+      .work-card:last-child { grid-column: 1 / -1; min-height: 0; }
+      .work-card:last-child .work-art { height: 210px; }
+      .aside-grid { gap: 2.5rem; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 36px, 1250px); }
+      .nav { min-height: 72px; }
+      .logo-mark { width: 34px; height: 34px; font-size: 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: .77rem; }
+      .nav-links .optional { display: none; }
+      .nav-links .nav-cta { padding: .5rem .65rem; gap: .5rem; }
+      .hero { padding-top: 66px; }
+      .hero-top { margin-bottom: 1.8rem; }
+      h1 { font-size: clamp(3.9rem, 14.1vw, 6.3rem); letter-spacing: -.085em; }
+      .hero-bottom { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; align-items: stretch; }
+      .hero-description { padding-bottom: 2.5rem; }
+      .drawing { height: 305px; }
+      .index-band .wrap { grid-template-columns: 1fr; }
+      .index-cell, .index-cell + .index-cell { padding: 1rem 0; border-left: none; }
+      .index-cell + .index-cell { border-top: 1px solid var(--line); }
+      .index-cell .mono { margin-bottom: .15rem; }
+      .section { padding: 78px 0; }
+      .about-grid, .aside-grid { display: block; }
+      .about-grid h2, .aside-grid h2 { margin-bottom: 2.5rem; }
+      .work-header, .contact .intro { display: block; }
+      .work-header p { margin-top: 1rem; max-width: 450px; }
+      .work-grid { display: block; }
+      .work-card { min-height: 0; margin-bottom: 1rem; }
+      .work-art { height: 210px; }
+      .work-card:last-child .work-art { height: 210px; }
+      .work-content { min-height: 225px; }
+      .aside-body { padding-top: 0; }
+      .contact-action { margin-top: 2.5rem; }
+      .footer { align-items: start; flex-direction: column; gap: .7rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header" id="top">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="logo" href="#top" aria-label="Akost, back to top"><span class="logo-mark" aria-hidden="true">a.</span><span>akost<span class="muted">/</span></span></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#exploring">Exploring</a>
+        <a href="#outside" class="optional">Beyond work</a>
+        <a class="nav-cta" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero-top mono"><span class="dot" aria-hidden="true"></span> A personal space on the internet <span class="muted">/ Est. 2026</span></div>
+        <h1 id="hero-title">Spaces.<br><span class="outline">Systems.</span><br><span class="accent">Everything</span><br>between.</h1>
+        <div class="hero-bottom">
+          <div class="hero-description">
+            <p>Hey, I'm <strong>Akost</strong> — an architecture student drawn to design, technology, and making things just to see if they work.</p>
+            <div class="sub">This site is part portfolio, part notebook, and entirely a work in progress.</div>
+            <a class="text-link" href="#about">A little more about me <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="drawing" aria-label="Abstract architectural wireframe illustration">
+            <span class="drawing-tag top mono">Fig. 01 / Continuous exploration</span>
+            <svg viewBox="0 0 540 365" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="#2740c7" stroke-width="1.5" opacity=".94">
+                <path d="M270 33L427 118V270L270 354L113 270V118Z" />
+                <path d="M270 33V194L427 118M270 194L113 118M270 194V354M270 194L427 270M270 194L113 270" />
+                <path d="M270 78L386 141V248L270 309L154 248V141Z" opacity=".72"/>
+                <path d="M270 78V194L386 141M270 194L154 141M270 194V309M270 194L386 248M270 194L154 248" opacity=".72"/>
+                <path d="M270 120L348 162V225L270 268L192 225V162Z" opacity=".6"/>
+                <path d="M270 120V194L348 162M270 194L192 162M270 194V268M270 194L348 225M270 194L192 225" opacity=".6"/>
+              </g>
+              <g stroke="#2740c7" stroke-dasharray="4 6" opacity=".5">
+                <path d="M270 0V365M0 194H540M113 118L427 270M427 118L113 270"/>
+                <circle cx="270" cy="194" r="116"/>
+                <circle cx="270" cy="194" r="162"/>
+              </g>
+              <circle cx="270" cy="194" r="4" fill="#2740c7"/>
+              <g fill="#2740c7"><circle cx="270" cy="33" r="3"/><circle cx="427" cy="118" r="3"/><circle cx="113" cy="270" r="3"/></g>
+            </svg>
+            <span class="drawing-tag bottom mono">Always under construction ↗</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="index-band">
+      <div class="wrap" aria-label="Quick facts">
+        <div class="index-cell"><span class="mono">01 / Background</span><strong>Architecture student · ENA Rabat</strong></div>
+        <div class="index-cell"><span class="mono">02 / Curiosity</span><strong>Design, code & digital tools</strong></div>
+        <div class="index-cell"><span class="mono">03 / Approach</span><strong>Learn, make, repeat</strong></div>
+      </div>
+    </div>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="section-heading mono"><span class="section-number">01</span> About me</div>
+        <div class="about-grid">
+          <h2 id="about-title">A curious<br>work in<br>progress<span class="accent">.</span></h2>
+          <div class="about-body">
+            <p class="lead">I'm studying architecture at ENA Rabat, and I'm interested in the space where the built world and digital tools meet.</p>
+            <p>I'm exploring how code, computational design, and better workflows can change the way we think about and make things. I haven't picked one narrow direction, and that's part of the point: I'm learning by trying.</p>
+            <p>Outside of that, I enjoy games, creating levels, football, and finding new things to make. This site is where the interesting bits can live as they develop.</p>
+            <div class="about-notes" aria-label="Interests">
+              <span class="tag">Architecture</span>
+              <span class="tag">Creative coding</span>
+              <span class="tag">Computational design</span>
+              <span class="tag">Game creation</span>
+              <span class="tag">Experiments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="exploring" aria-labelledby="work-title">
+      <div class="wrap">
+        <div class="section-heading mono"><span class="section-number">02</span> Current explorations</div>
+        <div class="work-header">
+          <h2 id="work-title">Things taking<br>shape<span class="accent">.</span></h2>
+          <p>Interests and directions, not a list of finished projects. The work will show up here as it becomes real.</p>
+        </div>
+        <div class="work-grid">
+          <article class="work-card">
+            <div class="work-art">
+              <span class="art-meta mono">Study / 01</span>
+              <svg viewBox="0 0 360 245" fill="none" aria-hidden="true">
+                <g stroke="#53665b" stroke-width="1.3">
+                  <path d="M45 184L154 117L284 171L175 236Z M45 184V84L154 20L284 73V171M175 236V134L45 84M175 134L284 73M154 20V117" />
+                  <path d="M93 152V107L153 72V117M223 151V98L264 77M45 116L175 168L284 108M45 149L175 203L284 142" opacity=".45"/>
+                  <path d="M79 96L207 149M112 75L243 128" stroke-dasharray="3 5" opacity=".55"/>
+                </g>
+                <g fill="#2b43db"><circle cx="154" cy="20" r="4"/><circle cx="284" cy="73" r="4"/><circle cx="175" cy="236" r="4"/></g>
+              </svg>
+            </div>
+            <div class="work-content"><span class="mono">Architecture</span><h3>Space & form</h3><p>Studio thinking, spatial studies, and how ideas turn into something you can see, draw, and build.</p><div class="work-card-foot"><span>Area of exploration</span><span aria-hidden="true">↗</span></div></div>
+          </article>
+          <article class="work-card">
+            <div class="work-art" style="background:#e5e5ef">
+              <span class="art-meta mono">Study / 02</span>
+              <svg viewBox="0 0 360 245" fill="none" aria-hidden="true">
+                <g stroke="#334bc5" stroke-width="1.3">
+                  <path d="M62 211V66M112 211V52M162 211V39M212 211V52M262 211V66M312 211V80" opacity=".3"/>
+                  <path d="M62 165L112 134L162 106L212 113L262 142L312 170M62 188L112 161L162 139L212 150L262 178L312 204" />
+                  <path d="M62 165L62 188M112 134L112 161M162 106L162 139M212 113L212 150M262 142L262 178M312 170L312 204" />
+                  <path d="M62 165L112 134L162 106L212 113L262 142L312 170" stroke-width="4"/>
+                  <path d="M55 67L110 53L162 39L213 52L262 67L309 80" stroke-dasharray="3 5"/>
+                </g>
+                <g fill="#334bc5"><circle cx="62" cy="165" r="4"/><circle cx="112" cy="134" r="4"/><circle cx="162" cy="106" r="4"/><circle cx="212" cy="113" r="4"/><circle cx="262" cy="142" r="4"/><circle cx="312" cy="170" r="4"/></g>
+              </svg>
+            </div>
+            <div class="work-content"><span class="mono">Computation</span><h3>Code & tools</h3><p>Learning Python and working toward useful little tools for design, data, and everyday workflows.</p><div class="work-card-foot"><span>Learning & experimenting</span><span aria-hidden="true">↗</span></div></div>
+          </article>
+          <article class="work-card">
+            <div class="work-art" style="background:#e7e9df">
+              <span class="art-meta mono">Study / 03</span>
+              <svg viewBox="0 0 360 245" fill="none" aria-hidden="true">
+                <g stroke="#344a36" stroke-width="1.3">
+                  <rect x="56" y="47" width="248" height="149" rx="3"/>
+                  <rect x="74" y="65" width="212" height="113" stroke-dasharray="4 5"/>
+                  <path d="M75 164L133 106L174 143L230 78L286 143M75 175L133 118L174 156L230 92L286 155" />
+                  <path d="M83 86H140M83 94H119M219 163H271"/>
+                </g>
+                <g fill="#2b43db"><rect x="131" y="104" width="8" height="8" transform="rotate(45 135 108)"/><circle cx="230" cy="78" r="5"/><rect x="275" y="132" width="10" height="10"/></g>
+              </svg>
+            </div>
+            <div class="work-content"><span class="mono">Digital making</span><h3>Play & create</h3><p>Level design, interactive ideas, and side projects driven by curiosity rather than a brief.</p><div class="work-card-foot"><span>Creative playground</span><span aria-hidden="true">↗</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section aside-section" id="outside" aria-labelledby="outside-title">
+      <div class="wrap">
+        <div class="section-heading mono"><span class="section-number">03</span> Beyond the desk</div>
+        <div class="aside-grid">
+          <h2 id="outside-title">Not everything has to be <em>productive.</em></h2>
+          <div class="aside-body">
+            <p>Some things I just like doing. I want this site to leave room for those too — not only the work that fits neatly into a portfolio.</p>
+            <ul class="aside-list">
+              <li><span>Geometry Dash & level creation</span><span class="mono">01</span></li>
+              <li><span>Games & digital worlds</span><span class="mono">02</span></li>
+              <li><span>Football</span><span class="mono">03</span></li>
+              <li><span>Whatever I'm curious about next</span><span class="mono">04</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <div class="section-heading mono"><span class="section-number">04</span> Say hello</div>
+        <div class="intro">
+          <h2 id="contact-title">Let's see what<br>happens next<span class="accent">.</span></h2>
+          <p>No elaborate contact form for now. If you'd like to follow what I build, GitHub is the best place to start.</p>
+        </div>
+        <a class="contact-action" href="https://github.com/Akorstt" target="_blank" rel="noopener noreferrer"><span>Find me on GitHub</span><span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer wrap">
+    <p>© <span id="year">2026</span> Akost. Built by hand, still evolving.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
